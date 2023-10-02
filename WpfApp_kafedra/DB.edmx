@@ -1,0 +1,935 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище KafedraModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Disciplines">
+          <Key>
+            <PropertyRef Name="DisciplineID" />
+          </Key>
+          <Property Name="DisciplineID" Type="int" Nullable="false" />
+          <Property Name="KafedraID" Type="int" />
+          <Property Name="DisciplineName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Total_number_of_hours" Type="int" />
+          <Property Name="Form_of_control" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Faculties">
+          <Key>
+            <PropertyRef Name="FacultyID" />
+          </Key>
+          <Property Name="FacultyID" Type="int" Nullable="false" />
+          <Property Name="FacultyName" Type="nvarchar" MaxLength="255" />
+          <Property Name="DeanFIO" Type="nvarchar" MaxLength="255" />
+          <Property Name="DeanOfficeRoomNumber" Type="int" />
+          <Property Name="DeanOfficePhone" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="int" Nullable="false" />
+          <Property Name="KafedraID" Type="int" />
+          <Property Name="GroupNumber" Type="nvarchar" MaxLength="10" />
+          <Property Name="Year_of_admission" Type="int" />
+          <Property Name="Course" Type="int" />
+        </EntityType>
+        <EntityType Name="Kafedra">
+          <Key>
+            <PropertyRef Name="KafedratID" />
+          </Key>
+          <Property Name="KafedratID" Type="int" Nullable="false" />
+          <Property Name="FacultyID" Type="int" />
+          <Property Name="KafedraName" Type="nvarchar" MaxLength="255" />
+          <Property Name="HeadOfKafedraFIO" Type="nvarchar" MaxLength="255" />
+          <Property Name="KafedraOfficeRoomNumber" Type="int" />
+          <Property Name="KafedraOfficePhone" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Lesson_schedule">
+          <Key>
+            <PropertyRef Name="LessonID" />
+          </Key>
+          <Property Name="LessonID" Type="int" Nullable="false" />
+          <Property Name="DisciplineID" Type="int" Nullable="false" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
+          <Property Name="TeacherID" Type="int" Nullable="false" />
+          <Property Name="Time_lesson" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Statement">
+          <Key>
+            <PropertyRef Name="StatementID" />
+          </Key>
+          <Property Name="StatementID" Type="int" Nullable="false" />
+          <Property Name="GroupID" Type="int" />
+          <Property Name="DisciplineID" Type="int" />
+          <Property Name="TeacherID" Type="int" />
+          <Property Name="AcademicYear" Type="nvarchar" MaxLength="20" />
+          <Property Name="Semester" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="GroupID" Type="int" />
+          <Property Name="StudentFIO" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="BirthYear" Type="int" />
+        </EntityType>
+        <EntityType Name="Sub_statement">
+          <Key>
+            <PropertyRef Name="Sub_statementID" />
+          </Key>
+          <Property Name="Sub_statementID" Type="int" Nullable="false" />
+          <Property Name="StatementID" Type="int" />
+          <Property Name="StudentID" Type="int" />
+          <Property Name="Score" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Teachers">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="int" Nullable="false" />
+          <Property Name="KafedraID" Type="int" />
+          <Property Name="Teacher_surname" Type="nvarchar" MaxLength="255" />
+          <Property Name="Teacher_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Teacher_patronymic" Type="nvarchar" MaxLength="255" />
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
+          <Property Name="AcademicRank" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmploymentRate" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="YearsOfExperience" Type="int" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__Courses__Departm__4AB81AF0">
+          <End Role="Kafedra" Type="Self.Kafedra" Multiplicity="0..1" />
+          <End Role="Disciplines" Type="Self.Disciplines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kafedra">
+              <PropertyRef Name="KafedratID" />
+            </Principal>
+            <Dependent Role="Disciplines">
+              <PropertyRef Name="KafedraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Departmen__Facul__3B75D760">
+          <End Role="Faculties" Type="Self.Faculties" Multiplicity="0..1" />
+          <End Role="Kafedra" Type="Self.Kafedra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculties">
+              <PropertyRef Name="FacultyID" />
+            </Principal>
+            <Dependent Role="Kafedra">
+              <PropertyRef Name="FacultyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Grades__StudentI__5441852A">
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+          <End Role="Sub_statement" Type="Self.Sub_statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Sub_statement">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Grades__Transcri__534D60F1">
+          <End Role="Statement" Type="Self.Statement" Multiplicity="0..1" />
+          <End Role="Sub_statement" Type="Self.Sub_statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statement">
+              <PropertyRef Name="StatementID" />
+            </Principal>
+            <Dependent Role="Sub_statement">
+              <PropertyRef Name="StatementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Groups__Departme__4316F928">
+          <End Role="Kafedra" Type="Self.Kafedra" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kafedra">
+              <PropertyRef Name="KafedratID" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="KafedraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Instructo__Depar__3F466844">
+          <End Role="Kafedra" Type="Self.Kafedra" Multiplicity="0..1" />
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kafedra">
+              <PropertyRef Name="KafedratID" />
+            </Principal>
+            <Dependent Role="Teachers">
+              <PropertyRef Name="KafedraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Students__GroupI__46E78A0C">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transcrip__Cours__4F7CD00D">
+          <End Role="Disciplines" Type="Self.Disciplines" Multiplicity="0..1" />
+          <End Role="Statement" Type="Self.Statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplines">
+              <PropertyRef Name="DisciplineID" />
+            </Principal>
+            <Dependent Role="Statement">
+              <PropertyRef Name="DisciplineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transcrip__Group__4E88ABD4">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="Statement" Type="Self.Statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Statement">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transcrip__Instr__5070F446">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="0..1" />
+          <End Role="Statement" Type="Self.Statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="TeacherID" />
+            </Principal>
+            <Dependent Role="Statement">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_schedule_Disciplines">
+          <End Role="Disciplines" Type="Self.Disciplines" Multiplicity="1" />
+          <End Role="Lesson_schedule" Type="Self.Lesson_schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplines">
+              <PropertyRef Name="DisciplineID" />
+            </Principal>
+            <Dependent Role="Lesson_schedule">
+              <PropertyRef Name="DisciplineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_schedule_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="Lesson_schedule" Type="Self.Lesson_schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Lesson_schedule">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_schedule_Teachers">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Lesson_schedule" Type="Self.Lesson_schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="TeacherID" />
+            </Principal>
+            <Dependent Role="Lesson_schedule">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Хранилище KafedraModelContainer">
+          <EntitySet Name="Disciplines" EntityType="Self.Disciplines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Faculties" EntityType="Self.Faculties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kafedra" EntityType="Self.Kafedra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lesson_schedule" EntityType="Self.Lesson_schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Statement" EntityType="Self.Statement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sub_statement" EntityType="Self.Sub_statement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Courses__Departm__4AB81AF0" Association="Self.FK__Courses__Departm__4AB81AF0">
+            <End Role="Kafedra" EntitySet="Kafedra" />
+            <End Role="Disciplines" EntitySet="Disciplines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Departmen__Facul__3B75D760" Association="Self.FK__Departmen__Facul__3B75D760">
+            <End Role="Faculties" EntitySet="Faculties" />
+            <End Role="Kafedra" EntitySet="Kafedra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Grades__StudentI__5441852A" Association="Self.FK__Grades__StudentI__5441852A">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Sub_statement" EntitySet="Sub_statement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Grades__Transcri__534D60F1" Association="Self.FK__Grades__Transcri__534D60F1">
+            <End Role="Statement" EntitySet="Statement" />
+            <End Role="Sub_statement" EntitySet="Sub_statement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Groups__Departme__4316F928" Association="Self.FK__Groups__Departme__4316F928">
+            <End Role="Kafedra" EntitySet="Kafedra" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Instructo__Depar__3F466844" Association="Self.FK__Instructo__Depar__3F466844">
+            <End Role="Kafedra" EntitySet="Kafedra" />
+            <End Role="Teachers" EntitySet="Teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Students__GroupI__46E78A0C" Association="Self.FK__Students__GroupI__46E78A0C">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transcrip__Cours__4F7CD00D" Association="Self.FK__Transcrip__Cours__4F7CD00D">
+            <End Role="Disciplines" EntitySet="Disciplines" />
+            <End Role="Statement" EntitySet="Statement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transcrip__Group__4E88ABD4" Association="Self.FK__Transcrip__Group__4E88ABD4">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Statement" EntitySet="Statement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transcrip__Instr__5070F446" Association="Self.FK__Transcrip__Instr__5070F446">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Statement" EntitySet="Statement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_schedule_Disciplines" Association="Self.FK_Lesson_schedule_Disciplines">
+            <End Role="Disciplines" EntitySet="Disciplines" />
+            <End Role="Lesson_schedule" EntitySet="Lesson_schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_schedule_Groups" Association="Self.FK_Lesson_schedule_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Lesson_schedule" EntitySet="Lesson_schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_schedule_Teachers" Association="Self.FK_Lesson_schedule_Teachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Lesson_schedule" EntitySet="Lesson_schedule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KafedraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Disciplines">
+          <Key>
+            <PropertyRef Name="DisciplineID" />
+          </Key>
+          <Property Name="DisciplineID" Type="Int32" Nullable="false" />
+          <Property Name="KafedraID" Type="Int32" />
+          <Property Name="DisciplineName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Total_number_of_hours" Type="Int32" />
+          <Property Name="Form_of_control" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Kafedra" Relationship="Self.FK__Courses__Departm__4AB81AF0" FromRole="Disciplines" ToRole="Kafedra" />
+          <NavigationProperty Name="Statement" Relationship="Self.FK__Transcrip__Cours__4F7CD00D" FromRole="Disciplines" ToRole="Statement" />
+          <NavigationProperty Name="Lesson_schedule" Relationship="Self.FK_Lesson_schedule_Disciplines" FromRole="Disciplines" ToRole="Lesson_schedule" />
+        </EntityType>
+        <EntityType Name="Faculties">
+          <Key>
+            <PropertyRef Name="FacultyID" />
+          </Key>
+          <Property Name="FacultyID" Type="Int32" Nullable="false" />
+          <Property Name="FacultyName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DeanFIO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DeanOfficeRoomNumber" Type="Int32" />
+          <Property Name="DeanOfficePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Kafedra" Relationship="Self.FK__Departmen__Facul__3B75D760" FromRole="Faculties" ToRole="Kafedra" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <Property Name="KafedraID" Type="Int32" />
+          <Property Name="GroupNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Year_of_admission" Type="Int32" />
+          <Property Name="Course" Type="Int32" />
+          <NavigationProperty Name="Kafedra" Relationship="Self.FK__Groups__Departme__4316F928" FromRole="Groups" ToRole="Kafedra" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__Students__GroupI__46E78A0C" FromRole="Groups" ToRole="Students" />
+          <NavigationProperty Name="Statement" Relationship="Self.FK__Transcrip__Group__4E88ABD4" FromRole="Groups" ToRole="Statement" />
+          <NavigationProperty Name="Lesson_schedule" Relationship="Self.FK_Lesson_schedule_Groups" FromRole="Groups" ToRole="Lesson_schedule" />
+        </EntityType>
+        <EntityType Name="Kafedra">
+          <Key>
+            <PropertyRef Name="KafedratID" />
+          </Key>
+          <Property Name="KafedratID" Type="Int32" Nullable="false" />
+          <Property Name="FacultyID" Type="Int32" />
+          <Property Name="KafedraName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HeadOfKafedraFIO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="KafedraOfficeRoomNumber" Type="Int32" />
+          <Property Name="KafedraOfficePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Disciplines" Relationship="Self.FK__Courses__Departm__4AB81AF0" FromRole="Kafedra" ToRole="Disciplines" />
+          <NavigationProperty Name="Faculties" Relationship="Self.FK__Departmen__Facul__3B75D760" FromRole="Kafedra" ToRole="Faculties" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK__Groups__Departme__4316F928" FromRole="Kafedra" ToRole="Groups" />
+          <NavigationProperty Name="Teachers" Relationship="Self.FK__Instructo__Depar__3F466844" FromRole="Kafedra" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Lesson_schedule">
+          <Key>
+            <PropertyRef Name="LessonID" />
+          </Key>
+          <Property Name="LessonID" Type="Int32" Nullable="false" />
+          <Property Name="DisciplineID" Type="Int32" Nullable="false" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <Property Name="TeacherID" Type="Int32" Nullable="false" />
+          <Property Name="Time_lesson" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Disciplines" Relationship="Self.FK_Lesson_schedule_Disciplines" FromRole="Lesson_schedule" ToRole="Disciplines" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Lesson_schedule_Groups" FromRole="Lesson_schedule" ToRole="Groups" />
+          <NavigationProperty Name="Teachers" Relationship="Self.FK_Lesson_schedule_Teachers" FromRole="Lesson_schedule" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Statement">
+          <Key>
+            <PropertyRef Name="StatementID" />
+          </Key>
+          <Property Name="StatementID" Type="Int32" Nullable="false" />
+          <Property Name="GroupID" Type="Int32" />
+          <Property Name="DisciplineID" Type="Int32" />
+          <Property Name="TeacherID" Type="Int32" />
+          <Property Name="AcademicYear" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Semester" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Disciplines" Relationship="Self.FK__Transcrip__Cours__4F7CD00D" FromRole="Statement" ToRole="Disciplines" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK__Transcrip__Group__4E88ABD4" FromRole="Statement" ToRole="Groups" />
+          <NavigationProperty Name="Sub_statement" Relationship="Self.FK__Grades__Transcri__534D60F1" FromRole="Statement" ToRole="Sub_statement" />
+          <NavigationProperty Name="Teachers" Relationship="Self.FK__Transcrip__Instr__5070F446" FromRole="Statement" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="GroupID" Type="Int32" />
+          <Property Name="StudentFIO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BirthYear" Type="Int32" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK__Students__GroupI__46E78A0C" FromRole="Students" ToRole="Groups" />
+          <NavigationProperty Name="Sub_statement" Relationship="Self.FK__Grades__StudentI__5441852A" FromRole="Students" ToRole="Sub_statement" />
+        </EntityType>
+        <EntityType Name="Sub_statement">
+          <Key>
+            <PropertyRef Name="Sub_statementID" />
+          </Key>
+          <Property Name="Sub_statementID" Type="Int32" Nullable="false" />
+          <Property Name="StatementID" Type="Int32" />
+          <Property Name="StudentID" Type="Int32" />
+          <Property Name="Score" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Statement" Relationship="Self.FK__Grades__Transcri__534D60F1" FromRole="Sub_statement" ToRole="Statement" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__Grades__StudentI__5441852A" FromRole="Sub_statement" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Teachers">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="Int32" Nullable="false" />
+          <Property Name="KafedraID" Type="Int32" />
+          <Property Name="Teacher_surname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Teacher_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Teacher_patronymic" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AcademicRank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmploymentRate" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="YearsOfExperience" Type="Int32" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Kafedra" Relationship="Self.FK__Instructo__Depar__3F466844" FromRole="Teachers" ToRole="Kafedra" />
+          <NavigationProperty Name="Lesson_schedule" Relationship="Self.FK_Lesson_schedule_Teachers" FromRole="Teachers" ToRole="Lesson_schedule" />
+          <NavigationProperty Name="Statement" Relationship="Self.FK__Transcrip__Instr__5070F446" FromRole="Teachers" ToRole="Statement" />
+        </EntityType>
+        <Association Name="FK__Courses__Departm__4AB81AF0">
+          <End Role="Kafedra" Type="Self.Kafedra" Multiplicity="0..1" />
+          <End Role="Disciplines" Type="Self.Disciplines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kafedra">
+              <PropertyRef Name="KafedratID" />
+            </Principal>
+            <Dependent Role="Disciplines">
+              <PropertyRef Name="KafedraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transcrip__Cours__4F7CD00D">
+          <End Role="Disciplines" Type="Self.Disciplines" Multiplicity="0..1" />
+          <End Role="Statement" Type="Self.Statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplines">
+              <PropertyRef Name="DisciplineID" />
+            </Principal>
+            <Dependent Role="Statement">
+              <PropertyRef Name="DisciplineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_schedule_Disciplines">
+          <End Role="Disciplines" Type="Self.Disciplines" Multiplicity="1" />
+          <End Role="Lesson_schedule" Type="Self.Lesson_schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplines">
+              <PropertyRef Name="DisciplineID" />
+            </Principal>
+            <Dependent Role="Lesson_schedule">
+              <PropertyRef Name="DisciplineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Departmen__Facul__3B75D760">
+          <End Role="Faculties" Type="Self.Faculties" Multiplicity="0..1" />
+          <End Role="Kafedra" Type="Self.Kafedra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculties">
+              <PropertyRef Name="FacultyID" />
+            </Principal>
+            <Dependent Role="Kafedra">
+              <PropertyRef Name="FacultyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Groups__Departme__4316F928">
+          <End Role="Kafedra" Type="Self.Kafedra" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kafedra">
+              <PropertyRef Name="KafedratID" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="KafedraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Students__GroupI__46E78A0C">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transcrip__Group__4E88ABD4">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="Statement" Type="Self.Statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Statement">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_schedule_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="Lesson_schedule" Type="Self.Lesson_schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Lesson_schedule">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Instructo__Depar__3F466844">
+          <End Role="Kafedra" Type="Self.Kafedra" Multiplicity="0..1" />
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kafedra">
+              <PropertyRef Name="KafedratID" />
+            </Principal>
+            <Dependent Role="Teachers">
+              <PropertyRef Name="KafedraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_schedule_Teachers">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Lesson_schedule" Type="Self.Lesson_schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="TeacherID" />
+            </Principal>
+            <Dependent Role="Lesson_schedule">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Grades__Transcri__534D60F1">
+          <End Role="Statement" Type="Self.Statement" Multiplicity="0..1" />
+          <End Role="Sub_statement" Type="Self.Sub_statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statement">
+              <PropertyRef Name="StatementID" />
+            </Principal>
+            <Dependent Role="Sub_statement">
+              <PropertyRef Name="StatementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transcrip__Instr__5070F446">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="0..1" />
+          <End Role="Statement" Type="Self.Statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="TeacherID" />
+            </Principal>
+            <Dependent Role="Statement">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Grades__StudentI__5441852A">
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+          <End Role="Sub_statement" Type="Self.Sub_statement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Sub_statement">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KafedraEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Disciplines" EntityType="Self.Disciplines" />
+          <EntitySet Name="Faculties" EntityType="Self.Faculties" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" />
+          <EntitySet Name="Kafedra" EntityType="Self.Kafedra" />
+          <EntitySet Name="Lesson_schedule" EntityType="Self.Lesson_schedule" />
+          <EntitySet Name="Statement" EntityType="Self.Statement" />
+          <EntitySet Name="Students" EntityType="Self.Students" />
+          <EntitySet Name="Sub_statement" EntityType="Self.Sub_statement" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Teachers" EntityType="Self.Teachers" />
+          <AssociationSet Name="FK__Courses__Departm__4AB81AF0" Association="Self.FK__Courses__Departm__4AB81AF0">
+            <End Role="Kafedra" EntitySet="Kafedra" />
+            <End Role="Disciplines" EntitySet="Disciplines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transcrip__Cours__4F7CD00D" Association="Self.FK__Transcrip__Cours__4F7CD00D">
+            <End Role="Disciplines" EntitySet="Disciplines" />
+            <End Role="Statement" EntitySet="Statement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_schedule_Disciplines" Association="Self.FK_Lesson_schedule_Disciplines">
+            <End Role="Disciplines" EntitySet="Disciplines" />
+            <End Role="Lesson_schedule" EntitySet="Lesson_schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Departmen__Facul__3B75D760" Association="Self.FK__Departmen__Facul__3B75D760">
+            <End Role="Faculties" EntitySet="Faculties" />
+            <End Role="Kafedra" EntitySet="Kafedra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Groups__Departme__4316F928" Association="Self.FK__Groups__Departme__4316F928">
+            <End Role="Kafedra" EntitySet="Kafedra" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Students__GroupI__46E78A0C" Association="Self.FK__Students__GroupI__46E78A0C">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transcrip__Group__4E88ABD4" Association="Self.FK__Transcrip__Group__4E88ABD4">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Statement" EntitySet="Statement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_schedule_Groups" Association="Self.FK_Lesson_schedule_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Lesson_schedule" EntitySet="Lesson_schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Instructo__Depar__3F466844" Association="Self.FK__Instructo__Depar__3F466844">
+            <End Role="Kafedra" EntitySet="Kafedra" />
+            <End Role="Teachers" EntitySet="Teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_schedule_Teachers" Association="Self.FK_Lesson_schedule_Teachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Lesson_schedule" EntitySet="Lesson_schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Grades__Transcri__534D60F1" Association="Self.FK__Grades__Transcri__534D60F1">
+            <End Role="Statement" EntitySet="Statement" />
+            <End Role="Sub_statement" EntitySet="Sub_statement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transcrip__Instr__5070F446" Association="Self.FK__Transcrip__Instr__5070F446">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Statement" EntitySet="Statement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Grades__StudentI__5441852A" Association="Self.FK__Grades__StudentI__5441852A">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Sub_statement" EntitySet="Sub_statement" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(KafedraModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(KafedraModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище KafedraModelContainer" CdmEntityContainer="KafedraEntities">
+          <EntitySetMapping Name="Disciplines">
+            <EntityTypeMapping TypeName="KafedraModel.Disciplines">
+              <MappingFragment StoreEntitySet="Disciplines">
+                <ScalarProperty Name="DisciplineID" ColumnName="DisciplineID" />
+                <ScalarProperty Name="KafedraID" ColumnName="KafedraID" />
+                <ScalarProperty Name="DisciplineName" ColumnName="DisciplineName" />
+                <ScalarProperty Name="Total_number_of_hours" ColumnName="Total_number_of_hours" />
+                <ScalarProperty Name="Form_of_control" ColumnName="Form_of_control" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Faculties">
+            <EntityTypeMapping TypeName="KafedraModel.Faculties">
+              <MappingFragment StoreEntitySet="Faculties">
+                <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
+                <ScalarProperty Name="FacultyName" ColumnName="FacultyName" />
+                <ScalarProperty Name="DeanFIO" ColumnName="DeanFIO" />
+                <ScalarProperty Name="DeanOfficeRoomNumber" ColumnName="DeanOfficeRoomNumber" />
+                <ScalarProperty Name="DeanOfficePhone" ColumnName="DeanOfficePhone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="KafedraModel.Groups">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="KafedraID" ColumnName="KafedraID" />
+                <ScalarProperty Name="GroupNumber" ColumnName="GroupNumber" />
+                <ScalarProperty Name="Year_of_admission" ColumnName="Year_of_admission" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kafedra">
+            <EntityTypeMapping TypeName="KafedraModel.Kafedra">
+              <MappingFragment StoreEntitySet="Kafedra">
+                <ScalarProperty Name="KafedratID" ColumnName="KafedratID" />
+                <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
+                <ScalarProperty Name="KafedraName" ColumnName="KafedraName" />
+                <ScalarProperty Name="HeadOfKafedraFIO" ColumnName="HeadOfKafedraFIO" />
+                <ScalarProperty Name="KafedraOfficeRoomNumber" ColumnName="KafedraOfficeRoomNumber" />
+                <ScalarProperty Name="KafedraOfficePhone" ColumnName="KafedraOfficePhone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lesson_schedule">
+            <EntityTypeMapping TypeName="KafedraModel.Lesson_schedule">
+              <MappingFragment StoreEntitySet="Lesson_schedule">
+                <ScalarProperty Name="LessonID" ColumnName="LessonID" />
+                <ScalarProperty Name="DisciplineID" ColumnName="DisciplineID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="Time_lesson" ColumnName="Time_lesson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Statement">
+            <EntityTypeMapping TypeName="KafedraModel.Statement">
+              <MappingFragment StoreEntitySet="Statement">
+                <ScalarProperty Name="StatementID" ColumnName="StatementID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="DisciplineID" ColumnName="DisciplineID" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="AcademicYear" ColumnName="AcademicYear" />
+                <ScalarProperty Name="Semester" ColumnName="Semester" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="KafedraModel.Students">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="StudentFIO" ColumnName="StudentFIO" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="BirthYear" ColumnName="BirthYear" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sub_statement">
+            <EntityTypeMapping TypeName="KafedraModel.Sub_statement">
+              <MappingFragment StoreEntitySet="Sub_statement">
+                <ScalarProperty Name="Sub_statementID" ColumnName="Sub_statementID" />
+                <ScalarProperty Name="StatementID" ColumnName="StatementID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="KafedraModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="KafedraModel.Teachers">
+              <MappingFragment StoreEntitySet="Teachers">
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="KafedraID" ColumnName="KafedraID" />
+                <ScalarProperty Name="Teacher_surname" ColumnName="Teacher_surname" />
+                <ScalarProperty Name="Teacher_name" ColumnName="Teacher_name" />
+                <ScalarProperty Name="Teacher_patronymic" ColumnName="Teacher_patronymic" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="AcademicRank" ColumnName="AcademicRank" />
+                <ScalarProperty Name="EmploymentRate" ColumnName="EmploymentRate" />
+                <ScalarProperty Name="YearsOfExperience" ColumnName="YearsOfExperience" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище KafedraModel.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище KafedraModel.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище KafedraModel.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище KafedraModel.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KafedraModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище KafedraModel.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KafedraModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище KafedraModel.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище KafedraModel.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

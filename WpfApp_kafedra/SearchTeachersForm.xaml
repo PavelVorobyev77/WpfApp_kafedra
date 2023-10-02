@@ -1,0 +1,42 @@
+﻿<Window x:Class="WpfApp_kafedra.SearchTeachersForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp_kafedra"
+        mc:Ignorable="d"
+        Title="SearchTeachersForm" Height="484" Width="874">
+    <Grid>
+        <!-- Labels -->
+        <Label Content="Фамилия:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="14,66,0,0"/>
+        <Label Content="Имя:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,97,0,0"/>
+        <Label Content="Отчество:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,121,0,0"/>
+        <Label Content="Кафедра:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,152,0,0"/>
+        <Label Content="Должность:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,182,0,0"/>
+        <Label Content="Научное звание:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,212,0,0"/>
+        <Label Content="Возраст:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,242,0,0"/>
+        <Label Content="Стаж:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,272,0,0"/>
+        <Label Content="Ставка:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,302,0,0"/>
+        <Label Content="Адрес:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,333,0,0"/>
+
+        <!-- Textboxes and Comboboxes -->
+        <TextBox x:Name="txtF" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="107,70,0,0"/>
+        <TextBox x:Name="txtI" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="107,97,0,0"/>
+        <TextBox x:Name="txtO" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="107,125,0,0"/>
+        <ComboBox x:Name="cmbKafedra" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="107,152,0,0"/>
+        <ComboBox x:Name="cmbPosition" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="107,182,0,0"/>
+        <ComboBox x:Name="cmbAcademicRank" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="123,212,0,0"/>
+        <ComboBox x:Name="cmbAge" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="107,242,0,0"/>
+        <ComboBox x:Name="cmbYearsOfExperience" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="107,272,0,0"/>
+        <ComboBox x:Name="cmbEmploymentRate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="107,302,0,0"/>
+        <ComboBox x:Name="cmbAddress" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="107,335,0,0"/>
+
+        <!-- Buttons -->
+        <Button Content="Применить" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Height="30" Margin="17,384,0,0" Click="ApplyFilter_Click" RenderTransformOrigin="0.514,0.228"/>
+        <Button Content="Очистить" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Height="30" Margin="123,384,0,0" Click="ClearFilters_Click"/>
+
+        <!-- DataGrid to display results -->
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Center" Width="532" Height="429" Margin="319,0,0,0"/>
+        <Button Content="Назад" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,20,0,0" Width="72" Click="BackButton_Click"/>
+    </Grid>
+</Window>

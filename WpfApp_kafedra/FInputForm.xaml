@@ -1,0 +1,28 @@
+﻿<Window x:Class="WpfApp_kafedra.FInputForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp_kafedra"
+        mc:Ignorable="d"
+        Title="FInputForm" Height="450" Width="800">
+    <Grid>
+        <TextBox Name="FacultyCodeTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="142,103,0,0" Width="150"/>
+        <TextBox Name="FacultyNameTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="142,151,0,0" Width="150"/>
+        <TextBox Name="DeanFIOTexBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="142,199,0,0" Width="150"/>
+        <TextBox Name="DeanOfficeRoomTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="142,246,0,0" Width="150"/>
+        <TextBox Name="DeanOfficePhoneTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="142,287,0,0" Width="150"/>
+        <Button Content="Назад" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="14,34,0,0" Width="72" Click="BackButton_Click"/>
+        <Button Content="Факультеты" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="132,34,0,0" Width="100" Click="FacultButton_Click"/>
+        <Button Content="Обновить" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="270,34,0,0" Width="100" Click="UpdateFaculty_Click"/>
+        <Button Content="Новая" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="409,34,0,0" Width="100" Click="NewFaculty_Click"/>
+        <Button Content="Добавить" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="545,34,0,0" Width="100" Click="AddFaculty_Click"/>
+        <Button Content="Удалить" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="680,34,0,0" Width="100" Click="DeleteFaculty_Click"/>
+        <Label Content="Код факультета" HorizontalAlignment="Left" Margin="39,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.131,-0.33"/>
+        <Label Content="Название факультета" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top"/>
+        <Label Content="ФИО декана" HorizontalAlignment="Left" Margin="47,195,0,0" VerticalAlignment="Top"/>
+        <Label Content="Аудитория" HorizontalAlignment="Left" Margin="51,242,0,0" VerticalAlignment="Top"/>
+        <Label Content="Телефон" HorizontalAlignment="Left" Margin="57,283,0,0" VerticalAlignment="Top"/>
+        <Image Source="C:\Users\pasch\Пашино\Колледж\3 КУРС\1 СЕМЕСТР\БД\БАба Данных\12.jpg" HorizontalAlignment="Left" Height="247" Margin="409,120,0,0" VerticalAlignment="Top" Width="352"/>
+    </Grid>
+</Window>
